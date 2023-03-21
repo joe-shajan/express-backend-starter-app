@@ -5,6 +5,9 @@ import helmet from 'helmet';
 
 import validateEnv from '@/utils/validateEnv';
 
+import router from '@/routers/routes';
+import usersRouter from '@/routers/users.routes';
+
 dotenv.config();
 
 validateEnv();
@@ -17,9 +20,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use('/', router);
+app.use('/', usersRouter);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
