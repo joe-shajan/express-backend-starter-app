@@ -8,11 +8,13 @@
 
 **step 4** : start mongodb instances `docker-compose up`
 
-**step 4** : `npm run dev`
+**step 5** : `npx prisma generate`
 
-**step 5** : To view database in mongodb compass use this url `mongodb://localhost:30001/exampleExpressAPI?directConnection=true&serverSelectionTimeoutMS=2000`
+**step 6** : `npm run dev`
 
-**step 6** : To build and start the app `npm run start`
+**step 7** : To view database in mongodb compass use this url `mongodb://localhost:30001/exampleExpressAPI?directConnection=true&serverSelectionTimeoutMS=2000`
+
+**step 8** : To build and start the app `npm run start`
 
 ## This starter app was build with the help of these articles
 
