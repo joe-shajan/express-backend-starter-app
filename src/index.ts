@@ -3,14 +3,14 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import validateEnv from '@/utils/validateEnv';
+import validateEnvs from '@/utils/validateEnvs';
 
 import router from '@/routers/routes';
 import usersRouter from '@/routers/users.routes';
 
 dotenv.config();
 
-validateEnv();
+validateEnvs();
 
 const port = process.env.PORT;
 
