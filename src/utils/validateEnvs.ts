@@ -5,6 +5,7 @@ const validateEnvs = () => {
     NODE_ENV: str(),
     PORT: port(),
     DATABASE_URL: str(),
+    SECRET_KEY: str(),
   });
 };
 
