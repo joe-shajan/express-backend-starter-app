@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import UsersService from '@/services/users.service';
 import { User } from '@prisma/client';
+import { CreateUserDto } from '@/dtos/users.dto';
+import { validate } from 'class-validator';
+import { CreateUserResponse } from '@/interfaces/users.interface';
 
 class UsersController {
   public usersService = new UsersService();
@@ -26,9 +29,27 @@ class UsersController {
 
   public createUser = async (req: Request, res: Response): Promise<void> => {
     try {
+      const createUserDto = new CreateUserDto();
+      createUserDto.email = req.body.email;
+      createUserDto.name = req.body.name;
+
+      const errors = await validate(createUserDto);
+      if (errors.length > 0) {
+        const constraints = {};
+        errors.forEach(error => {
+          const propertyName = error.property;
+          const errorConstraints = Object.values(error.constraints);
+          constraints[propertyName] = errorConstraints;
+        });
+        res.status(400).json({ constraints });
+        return;
+      }
+
       const user: User = req.body;
       const newUser: User = await this.usersService.createUser(user);
-      res.status(201).json({ user: newUser });
+      const { email, name } = newUser;
+      const createUserResponse: CreateUserResponse = { email, name };
+      res.status(201).json({ user: createUserResponse });
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
